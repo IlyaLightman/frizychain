@@ -1,0 +1,21 @@
+{
+  "name": "frizychain",
+  "version": "1.0.0",
+  "description": "Simple Bitcoin-like blockchain",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "tsc -p tsconfig.json && node dist/index.js",
+    "lint": "eslint . --ext .ts"
+  },
+  "keywords": [],
+  "author": "Ilya Zaytsev (ilya@zaytsev.xyz)",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.3"
+  }
+}
