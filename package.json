@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "base58check": "^2.0.0",
-    "elliptic": "^6.5.4"
+    "elliptic": "^6.5.4",
+    "ripemd160": "^2.0.2"
   }
 }
