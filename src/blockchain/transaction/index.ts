@@ -1,5 +1,5 @@
-import TransactionInput from "./input";
-import TransactionOutput from "./output";
+import TransactionInput from './input'
+import TransactionOutput from './output'
 
 export default class Transaction {
     inputs: TransactionInput[]
