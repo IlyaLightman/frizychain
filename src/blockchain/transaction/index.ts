@@ -6,35 +6,50 @@ import TransactionOutput from './output'
 export default class Transaction {
 	inputs: TransactionInput[]
 	outputs: TransactionOutput[]
-	signature: ec.Signature | null
 
 	constructor(inputs: TransactionInput[], outputs: TransactionOutput[]) {
 		this.inputs = inputs
 		this.outputs = outputs
-		this.signature = null
 	}
 
 	public getHash: () => string = () => {
 		return getCommonHash(
-			this.inputs.reduce((hash, input) => hash + input.hash, '') +
-				this.outputs.reduce((hash, input) => hash + input.hash, '')
+			[this.inputs, this.outputs].reduce(
+				(hash, curr: Array<TransactionInput | TransactionOutput>) => {
+					return hash + curr.reduce((hash, input) => hash + input.hash, '')
+				}, ''
+			)
 		)
 	}
 
-	// Temporary addition way to sign, i don't know why
+	public addInput: (previousOutputHash: string, unlockingScript: string) => void = (
+		previousOutputHash, unlockingScript
+	) => {
+		const input = new TransactionInput(previousOutputHash, unlockingScript)
 
-	public sign: (keyPair: ec.KeyPair) => void = keyPair => {
-		const signatureObject = keyPair.sign(this.getHash())
-
-		this.signature = signatureObject
+		this.inputs.push(input)
 	}
 
-	public verify: (publicKey: string) => boolean = publicKey => {
-		if (!this.signature) return false
+	public addOutput: (value: number, lockingScript: string) => void = (value, lockingScript) => {
+		const output = new TransactionOutput(value, lockingScript)
+
+		this.outputs.push(output)
+	}
+
+	public getSignature: (keyPair: ec.KeyPair) => ec.Signature = keyPair => {
+		const signatureObject = keyPair.sign(this.getHash())
+
+		return signatureObject
+	}
+
+	public verifySignature: (signature: string, publicKey: string) => boolean = (
+		signature, publicKey
+	) => {
+		if (!signature) return false
 
 		const elliptic: ec = new ec('secp256k1')
 		const key = elliptic.keyFromPublic(publicKey, 'hex')
-		const verified = key.verify(this.getHash(), this.signature)
+		const verified = key.verify(this.getHash(), signature)
 
 		return verified
 	}

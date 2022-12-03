@@ -10,7 +10,7 @@ Similar to Bitcoin it uses **ECDSA** eleptic-curve cryptography algorithm for ge
 
 ### Runtime
 
-At first it will only support **Pay to Public Key Hash** (until solving Transaction malleability). Although you are able to fill transaction scripts whatever you want, if it isn't **P2PHK**, it will not be safety.
+At first it will only support **Pay to Public Key Hash**. Although you are able to fill transaction scripts whatever you want, if it isn't **P2PHK**, it may not not be safe. It is the result of Transaction malleability present in Bitcoin.
 
 Syntax similar to Bitcoin:
 
