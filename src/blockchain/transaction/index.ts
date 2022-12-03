@@ -30,6 +30,20 @@ export default class Transaction {
 		this.inputs.push(input)
 	}
 
+	public addUnsignedP2PHKInput: (previousOutputHash: string) => void = previousOutputHash => {
+		this.addInput(previousOutputHash, 'P2PHK_UNSIGNED')
+	}
+
+	public signUnsignedP2PHKInputs: (signature: string, publicKey: string) => void = (
+		signature, publicKey
+	) => {
+		this.inputs.forEach(input => {
+			if (input.unlockingScript === 'P2PHK_UNSIGNED') {
+				input.setUnlockingScript(`${signature} ${publicKey}`)
+			}
+		})
+	}
+
 	public addOutput: (value: number, lockingScript: string) => void = (value, lockingScript) => {
 		const output = new TransactionOutput(value, lockingScript)
 

@@ -11,6 +11,13 @@ export default class TransactionInput {
         this.previousOutputHash = previousOutputHash
         this.unlockingScript = unlockingScript
         this.timestamp = timestamp
-        this.hash = getCommonHash(previousOutputHash + unlockingScript + timestamp)
+        // There isn't unlocking script here yet (and probably won't be),
+        // so it doesn't covered by hash and verifies with other mechanisms
+        this.hash = getCommonHash(`${previousOutputHash}${timestamp}`)
+    }
+
+    public setUnlockingScript: (unlockingScript: string) => void = unlockingScript => {
+        // TODO: Additional checks of new script
+        this.unlockingScript = unlockingScript
     }
 }

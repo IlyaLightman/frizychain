@@ -10,7 +10,10 @@ Similar to Bitcoin it uses **ECDSA** eleptic-curve cryptography algorithm for ge
 
 ### Runtime
 
-At first it will only support **Pay to Public Key Hash**. Although you are able to fill transaction scripts whatever you want, if it isn't **P2PHK**, it may not not be safe. It is the result of Transaction malleability present in Bitcoin.
+At first it will only support **Pay to Public Key Hash**. Although you are able to fill transaction scripts whatever you want, if it isn't **P2PHK**, it may not not be safe. It is the result of Transaction malleability presents in Bitcoin.
+
+In Frizychain hash of transaction doesn't cover inputs unlocking scripts at all, but there will be
+additional mechanisms to verify it.
 
 Syntax similar to Bitcoin:
 
